@@ -5,7 +5,7 @@ public abstract class Figur {
     protected String type;
     protected int player;
     //create constructor
-    public Figur(int x, int y, String type, int player) {
+    public Figur(int x, int y, String type, String player) {
         this.x = x;
         this.y = y;
         this.type = type;
@@ -29,8 +29,8 @@ public abstract class Figur {
     }
 
     //give player
-    public int getPlayer() {
+    public String getPlayer() {
         return player;
     }
-    
+
 }
