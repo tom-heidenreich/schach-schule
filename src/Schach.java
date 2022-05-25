@@ -1,5 +1,5 @@
 public class Schach {
-    private final Brett brett;
+    public final Brett brett;
 
     public final Spieler spieler1;
     public final Spieler spieler2;
