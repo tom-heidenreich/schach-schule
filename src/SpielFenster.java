@@ -1,12 +1,14 @@
-import javax.swing.JFrame;
+import javax.swing.JFrame;;
 
 public class SpielFenster {
     
     private final JFrame frame;
+    private final Dimension size;
 
     public SpielFenster() {
         frame = new JFrame("Schach");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
     }
 
     public void zeige() {
@@ -18,8 +20,14 @@ public class SpielFenster {
     }
 
     public void zeichne(Schach schach) {
+
         // get players
-        String spieler1 = schach.getSpieler1();
-        String spieler2 = schach.getSpieler2();
+        Spieler spieler1 = schach.spieler1;
+        Spieler spieler2 = schach.spieler2;
+
+        // get board
+        Brett brett = schach.brett;
+
+        BufferedImage image = new BufferedImage(, , BufferedImage.TYPE_INT_RGB);
     }
 }

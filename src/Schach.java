@@ -1,8 +1,8 @@
 public class Schach {
-    private final Brett brett;
+    public final Brett brett;
 
-    private final Spieler spieler1;
-    private final Spieler spieler2;
+    public final Spieler spieler1;
+    public final Spieler spieler2;
 
     public Schach(Spieler spieler1, Spieler spieler2) {
         brett = new Brett();
