@@ -5,7 +5,7 @@ public class Brett {
         feld = new Figur[8][8];
         feldFuellen();
     }
-    //LUL
+    //LULulu
     private void feldFuellen() {
         
     }
