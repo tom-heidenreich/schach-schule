@@ -3,7 +3,7 @@ public abstract class Figur {
     protected int x;
     protected int y;
     protected String type;
-    protected int player;
+    protected String player;
     //create constructor
     public Figur(int x, int y, String type, String player) {
         this.x = x;
