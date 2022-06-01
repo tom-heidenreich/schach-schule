@@ -1,3 +1,4 @@
+package schach;
 public class Figur {
 
     public static enum FigurType {

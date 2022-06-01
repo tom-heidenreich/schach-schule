@@ -1,3 +1,4 @@
+package schach;
 public class Position {
     public final int x;
     public final int y;

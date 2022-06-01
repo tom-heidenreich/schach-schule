@@ -1,3 +1,4 @@
+package schach;
 public class Brett {
     private final Figur[][] feld;
     String[] aufstellung = {"r", "n", "b", "q", "k", "b", "n", "r"};

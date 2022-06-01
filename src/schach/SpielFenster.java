@@ -1,3 +1,4 @@
+package schach;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -5,7 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 
-import Figur.FigurFarbe;
+import schach.Figur.FigurFarbe;
 
 public class SpielFenster extends Fenster {
     
