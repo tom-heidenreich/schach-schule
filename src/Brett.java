@@ -1,11 +1,18 @@
 public class Brett {
     private final Figur[][] feld;
+    String[] aufstellung = {"r", "n", "b", "q", "k", "b", "n", "r"};
 
     public Brett() {
         feld = new Figur[8][8];
-        String aufstellung[] = {"r", "n","b", "q", "k", "b", "n" "r"}
         feldFuellen();
     }
+
+
+
+  //du hurensohn
+
+
+
 
     private void feldFuellen() {
         for (int k = 0; k < 8; k++) {
@@ -17,12 +24,13 @@ public class Brett {
         }
     }
 
-    public void move(Figur figur, int x, int y,) {      
+    public void move(Figur figur, int x, int y) {      
        if (feld[x][y] == null) {
-           feld[x][y] == feld[figur.getPositionX()][figur.getPositionY()];
+           feld[x][y] = feld[figur.getX()][figur.getY()];
        }
         
         
     }
+
 
 }
