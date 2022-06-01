@@ -1,74 +1,42 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 
-import javax.swing.JFrame;
-
-public class SpielFenster {
+public class SpielFenster extends Fenster {
     
-    private final JFrame frame;
-    private final Dimension dimension;
-
     private final Schach schach;
 
-    private final Thread worker;
+    protected static final Dimension dimension = new Dimension(1200, 1000);
 
-    private final BufferStrategy bufferStrategy;
+    private static final int paddingX = 200;
+    private static final int paddingY = 100;
 
-    private final int paddingX = 200;
-    private final int paddingY = 100;
+    private static final int size = 100;
 
-    private final int size = 100;
+    private final static MouseAdapter adapter = new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent evt) {
+            int x = evt.getX();
+            int y = evt.getY();
+            // if inside board
+            if(x - paddingX > 0 && x < dimension.width - paddingX && y > 0 && y < dimension.height - paddingY) {
+                int xPos = (x - 1) / size;
+                int yPos = (y - 1) / size;
+                System.out.println(xPos + " " + yPos);
+            }
+        }
+    };
 
     public SpielFenster(Schach schach) {
-
-        this.schach = schach;
-
-        dimension = new Dimension(1200, 1000);
-
-        frame = new JFrame("Schach");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
-        frame.setSize(dimension);
-
         // click listener
-        frame.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                int x = evt.getX();
-                int y = evt.getY();
-                // if inside board
-                if(x - paddingX > 0 && x < dimension.width - paddingX && y > 0 && y < dimension.height - paddingY) {
-                    int xPos = (x - 1) / size;
-                    int yPos = (y - 1) / size;
-                }
-            }
-        });
-
-        frame.setVisible(true);
-
-        // buffered frames
-        frame.createBufferStrategy(2);
-        bufferStrategy = frame.getBufferStrategy();
-
-        worker = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while(true) {
-                    zeichne();
-                    try {
-                        Thread.sleep(10);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-        worker.run();
+        super(adapter);
+        this.schach = schach;
     }
 
-    private void zeichne() {
+    protected void zeichne(BufferStrategy bufferStrategy) {
 
         Graphics graphics = bufferStrategy.getDrawGraphics();
 
