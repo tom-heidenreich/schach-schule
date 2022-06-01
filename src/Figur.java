@@ -1,4 +1,4 @@
-public abstract class Figur {
+public class Figur {
 //create variables
     protected int x;
     protected int y;
