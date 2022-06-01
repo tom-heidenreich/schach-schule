@@ -1,3 +1,4 @@
+package schach;
 public class Spieler {
     public final String name;
 

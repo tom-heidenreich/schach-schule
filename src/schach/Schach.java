@@ -1,3 +1,4 @@
+package schach;
 public class Schach {
     public final Brett brett;
 
