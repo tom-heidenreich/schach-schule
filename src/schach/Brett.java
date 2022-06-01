@@ -1,7 +1,11 @@
 package schach;
+
+import schach.Figur.FigurFarbe;
+import schach.Figur.FigurType;
+
 public class Brett {
     private final Figur[][] feld;
-    String[] aufstellung = {"r", "n", "b", "q", "k", "b", "n", "r"};
+    FigurType[] aufstellung = {FigurType.TURM, FigurType.SPRINGER, FigurType.LÄUFER, FigurType.KÖNIGIN, FigurType.KÖNIG, FigurType.LÄUFER, FigurType.SPRINGER, FigurType.TURM};
 
     public Brett() {
         feld = new Figur[8][8];
@@ -16,10 +20,10 @@ public class Brett {
 
     private void feldFuellen() {
         for (int k = 0; k < 8; k++) {
-             feld[7][k] = new Figur(k, 7, aufstellung[k], "b");
-             feld[0][k] = new Figur(k, 0, aufstellung[k], "w");
-             feld[1][k] = new Figur(k, 1, "p", "w");
-             feld[6][k] = new Figur(k, 6, "p", "b");
+             feld[7][k] = new Figur(k, 7, aufstellung[k], FigurFarbe.SCHWARZ);
+             feld[0][k] = new Figur(k, 0, aufstellung[k], FigurFarbe.WEISS);
+             feld[1][k] = new Figur(k, 1, FigurType.BAUER, FigurFarbe.WEISS);
+             feld[6][k] = new Figur(k, 6, FigurType.BAUER, FigurFarbe.SCHWARZ);
 
         }
     }
