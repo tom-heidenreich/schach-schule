@@ -5,8 +5,7 @@ public class Main {
         Spieler spieler2 = new Spieler("Spieler 2");
 
         Schach schach = new Schach(spieler1, spieler2);
-        
+
         SpielFenster spielFenster = new SpielFenster(schach);
-        spielFenster.zeige();
     }
 }
