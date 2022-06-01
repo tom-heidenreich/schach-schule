@@ -2,7 +2,7 @@ package schach;
 public class Figur {
 
     public static enum FigurType {
-        LÄUFER, SPRINGER, TURM, DAME, KÖNIG, BAUER
+        LÄUFER, SPRINGER, TURM, DAME, KÖNIG, BAUER, KÖNIGIN
     }
 
     public static enum FigurFarbe {
