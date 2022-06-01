@@ -30,6 +30,8 @@ public class Brett {
         
         
     }
-
-
+//give positons of all figures
+    public Figur[][] getFeld() {
+        return feld;
+    }
 }
