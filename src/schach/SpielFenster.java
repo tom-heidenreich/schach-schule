@@ -1,4 +1,5 @@
 package schach;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -74,10 +75,10 @@ public class SpielFenster extends Fenster {
                 Figur figur = figuren[i][j];
 
                 if (figur != null) {
-                    if(figur.type == FigurFarbe.WEISS) {
-                        graphics.setColor(Color.gray);
+                    if(figur.farbe == FigurFarbe.WEISS) {
+                        graphics.setColor(Color.red);
                     } else {
-                        graphics.setColor(Color.blue);
+                        graphics.setColor(Color.green);
                     }
                     graphics.fillOval(i * size + paddingX + size / 4, j * size + paddingY + size / 4, size / 2, size / 2);
                 }
