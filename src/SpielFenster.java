@@ -34,6 +34,8 @@ public class SpielFenster extends Fenster {
         // click listener
         super(adapter);
         this.schach = schach;
+        this.setSize(dimension);
+        this.run();
     }
 
     protected void zeichne(BufferStrategy bufferStrategy) {

@@ -39,6 +39,9 @@ public abstract class Fenster {
                 }
             }
         });
+    }
+
+    protected final void run() {
         worker.run();
     }
 
