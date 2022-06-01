@@ -5,6 +5,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 
+import Figur.FigurFarbe;
+
 public class SpielFenster extends Fenster {
     
     private final Schach schach;
@@ -48,8 +50,8 @@ public class SpielFenster extends Fenster {
         Spieler spieler1 = schach.spieler1;
         Spieler spieler2 = schach.spieler2;
 
-        // get board
-        Brett brett = schach.brett;
+        // get figures
+        Figur[][] figuren = schach.brett.getFeld();
 
         graphics.setColor(Color.black);
 
@@ -67,6 +69,17 @@ public class SpielFenster extends Fenster {
                     graphics.setColor(Color.black);
                 }
                 graphics.fillRect(i * size + paddingX, j * size + paddingY, size, size);
+
+                Figur figur = figuren[i][j];
+
+                if (figur != null) {
+                    if(figur.type == FigurFarbe.WEISS) {
+                        graphics.setColor(Color.gray);
+                    } else {
+                        graphics.setColor(Color.blue);
+                    }
+                    graphics.fillOval(i * size + paddingX + size / 4, j * size + paddingY + size / 4, size / 2, size / 2);
+                }
             }
         }
 

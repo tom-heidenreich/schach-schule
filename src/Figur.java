@@ -1,15 +1,24 @@
 public class Figur {
+
+    public static enum FigurType {
+        LÄUFER, SPRINGER, TURM, DAME, KÖNIG, BAUER
+    }
+
+    public static enum FigurFarbe {
+        WEISS, SCHWARZ
+    }
+
 //create variables
     protected int x;
     protected int y;
-    protected String type;
-    protected String player;
+    protected FigurType type;
+    protected FigurFarbe farbe;
     //create constructor
-    public Figur(int x, int y, String type, String player) {
+    public Figur(int x, int y, FigurType type, FigurFarbe farbe) {
         this.x = x;
         this.y = y;
         this.type = type;
-        this.player = player;
+        this.farbe = farbe;
 
     }
 
@@ -24,13 +33,13 @@ public class Figur {
     }
 
     //give type
-    public String getType() {
+    public FigurType getType() {
         return type;
     }
 
     //give player
-    public String getPlayer() {
-        return player;
+    public FigurFarbe getFarbe() {
+        return farbe;
     }
 
 }
