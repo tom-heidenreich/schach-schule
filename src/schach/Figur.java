@@ -88,7 +88,7 @@ public class Figur {
     private boolean[][] turm(Figur[][] feld) {
         boolean[][] moves = new boolean[8][8];
         //go from x and y to the right
-        for(int i = x + 1; i + x < 8+; i++) {
+        for(int i = x + 1; i + x < 8; i++) {
             if (feld[i][y] == null) {
                 moves[i][y] = true;
             } else if (feld[i][y].getFarbe() != farbe) {
