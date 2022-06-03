@@ -8,6 +8,12 @@ public class StartFenster extends Fenster {
 
     private static final Dimension dimension = new Dimension(500, 300);
 
+    public StartFenster() {
+        super(60);
+
+        this.setSize(dimension);
+    }
+
     @Override
     protected void zeichne(BufferStrategy strategy) {
         
@@ -16,6 +22,8 @@ public class StartFenster extends Fenster {
         g.clearRect(0, 0, (int) dimension.getWidth(), (int) dimension.getHeight());
 
         g.setColor(Color.black);
-        g.drawRect(100, 100, 200, 200);
+        g.fillRect(150, 100, 200, 100);
+
+        strategy.show();
     }
 }

@@ -3,6 +3,7 @@ package schach;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
@@ -28,7 +29,9 @@ public class SpielFenster extends Fenster {
 
     private final HashMap<String, BufferedImage> images;
 
-    private final static MouseAdapter adapter = new MouseAdapter() {
+    private Position selectedPosition;
+
+    private final MouseAdapter adapter = new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent evt) {
             int x = evt.getX();
@@ -37,16 +40,22 @@ public class SpielFenster extends Fenster {
             if(x - paddingX > 0 && x < dimension.width - paddingX && y > 0 && y < dimension.height - paddingY) {
                 int xPos = (x - 1) / size - 2;
                 int yPos = (y - 1) / size - 1;
-                System.out.println(xPos + " " + yPos);
+                if(selectedPosition == null) selectedPosition = new Position(xPos, yPos);
+                else if(!selectedPosition.istGleich(new Position(xPos, yPos))) {
+                    Position position = new Position(xPos, yPos);
+                    schach.brett.move(selectedPosition.y, selectedPosition.x, position.y, position.x);
+                    selectedPosition = null;
+                }
             }
         }
     };
 
     public SpielFenster(Schach schach) {
         // click listener
-        super(adapter);
+        super(144);
         this.schach = schach;
         this.setSize(dimension);
+        this.setAdapter(adapter);
         
         FigurType[] types = Figur.FigurType.values();
         this.images = new HashMap<String, BufferedImage>();
@@ -60,8 +69,6 @@ public class SpielFenster extends Fenster {
                 System.exit(0);
             }
         }
-
-        this.run();
     }
 
     protected void zeichne(BufferStrategy bufferStrategy) {
@@ -97,6 +104,13 @@ public class SpielFenster extends Fenster {
                 int y = j * size + paddingY;
 
                 graphics.fillRect(x, y, size, size);
+
+                boolean isSelected = selectedPosition != null && selectedPosition.x == i && selectedPosition.y == j;
+                if(isSelected && schach.brett.istBesetzt(j, i)) {
+                    graphics.setColor(new Color(122,122,122));
+                    ((Graphics2D) graphics).setStroke(new java.awt.BasicStroke(3));
+                    graphics.drawRect(x, y, size-2, size-2);
+                }
 
                 Figur figur = figuren[j][i];
 
