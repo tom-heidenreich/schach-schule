@@ -7,6 +7,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
@@ -50,12 +51,10 @@ public class SpielFenster extends Fenster {
         FigurType[] types = Figur.FigurType.values();
         this.images = new HashMap<String, BufferedImage>();
         for(int i = 0; i<types.length; i++) {
-            char c = types[i].name().charAt(0);
+            char c = types[i].toKey();
             try {
-                System.out.println(c);
-                System.out.println(getClass().getResource("/images/w" + c + ".png"));
-                this.images.put(types[i].name() + 'w', ImageIO.read(getClass().getResource("images/w" + c + ".png")));
-                this.images.put(types[i].name() + 'b', ImageIO.read(getClass().getResource("images/b" + c + ".png")));
+                this.images.put(types[i].name() + 'w', ImageIO.read(new File("src/images/w" + c + ".png")));
+                this.images.put(types[i].name() + 'b', ImageIO.read(new File("src/images/b" + c + ".png")));
             }catch(Exception e) {
                 e.printStackTrace();
                 System.exit(0);
