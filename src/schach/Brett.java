@@ -39,4 +39,8 @@ public class Brett {
     public Figur[][] getFeld() {
         return feld;
     }
+
+    public boolean istBesetzt(int x, int y) {
+        return feld[x][y] != null;
+    }
 }
