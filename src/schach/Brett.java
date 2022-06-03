@@ -28,10 +28,10 @@ public class Brett {
         }
     }
 
-    public void move(Figur figur, int x, int y) {      
-       if (feld[x][y] == null) {
-            feld[x][y] = figur;
-            feld[figur.getX()][figur.getY()] = null;
+    public void move(int x1, int y1, int x2, int y2) {      
+       if (feld[x2][y2] == null) {
+            feld[x2][y2] = feld[x1][y1];
+            feld[x1][y1] = null;
        }
         
         
