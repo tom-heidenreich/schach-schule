@@ -7,7 +7,7 @@ public class Figur {
         public char toKey() {
             switch(this) {
                 case LÄUFER: return 'b';
-                case SPRINGER: return 'k';
+                case SPRINGER: return 'n';
                 case TURM: return 'r';
                 case DAME: return 'q';
                 case KÖNIG: return 'k';
