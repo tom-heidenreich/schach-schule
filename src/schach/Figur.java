@@ -98,13 +98,39 @@ public class Figur {
                 break;
             }
         }
-        for (int i = -7; i < 7; i++) {
-            if (x + i < 8 && x + i > 0 && feld[x + i][y] == null) {
-                moves[x + i][y] = true;
-            }
-            if (y + i < 8 && y + i > 0 && feld[x + i][y] == null) {
-                moves[x][y + i] = true;
+        //go from x and y to the left
+        for(int i = x - 1; i + x > 0; i--) {
+            if (feld[i][y] == null) {
+                moves[i][y] = true;
+            } else if (feld[i][y].getFarbe() != farbe) {
+                moves[i][y] = true;
+                break;
+            } else {
+                break;
             }
         }
+        //go from x and y to the top
+        for(int i = y + 1; i + y < 8; i++) {
+            if (feld[x][i] == null) {
+                moves[x][i] = true;
+            } else if (feld[x][i].getFarbe() != farbe) {
+                moves[x][i] = true;
+                break;
+            } else {
+                break;
+            }
+        }
+        //go from x and y to the bottom
+        for(int i = y - 1; i + y > 0; i--) {
+            if (feld[x][i] == null) {
+                moves[x][i] = true;
+            } else if (feld[x][i].getFarbe() != farbe) {
+                moves[x][i] = true;
+                break;
+            } else {
+                break;
+            }
+        }
+        return moves;
     }
 }
