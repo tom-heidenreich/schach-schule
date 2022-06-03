@@ -5,7 +5,7 @@ import schach.Figur.FigurType;
 
 public class Brett {
     private final Figur[][] feld;
-    FigurType[] aufstellung = {FigurType.TURM, FigurType.SPRINGER, FigurType.LÄUFER, FigurType.KÖNIGIN, FigurType.KÖNIG, FigurType.LÄUFER, FigurType.SPRINGER, FigurType.TURM};
+    FigurType[] aufstellung = {FigurType.TURM, FigurType.SPRINGER, FigurType.LÄUFER, FigurType.DAME, FigurType.KÖNIG, FigurType.LÄUFER, FigurType.SPRINGER, FigurType.TURM};
 
     public Brett() {
         feld = new Figur[8][8];

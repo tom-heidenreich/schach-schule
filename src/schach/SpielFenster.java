@@ -6,8 +6,13 @@ import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.util.HashMap;
+
+import javax.imageio.ImageIO;
 
 import schach.Figur.FigurFarbe;
+import schach.Figur.FigurType;
 
 public class SpielFenster extends Fenster {
     
@@ -20,6 +25,8 @@ public class SpielFenster extends Fenster {
 
     private static final int size = 100;
 
+    private final HashMap<String, BufferedImage> images;
+
     private final static MouseAdapter adapter = new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent evt) {
@@ -27,8 +34,8 @@ public class SpielFenster extends Fenster {
             int y = evt.getY();
             // if inside board
             if(x - paddingX > 0 && x < dimension.width - paddingX && y > 0 && y < dimension.height - paddingY) {
-                int xPos = (x - 1) / size;
-                int yPos = (y - 1) / size;
+                int xPos = (x - 1) / size - 2;
+                int yPos = (y - 1) / size - 1;
                 System.out.println(xPos + " " + yPos);
             }
         }
@@ -39,6 +46,22 @@ public class SpielFenster extends Fenster {
         super(adapter);
         this.schach = schach;
         this.setSize(dimension);
+        
+        FigurType[] types = Figur.FigurType.values();
+        this.images = new HashMap<String, BufferedImage>();
+        for(int i = 0; i<types.length; i++) {
+            char c = types[i].name().charAt(0);
+            try {
+                System.out.println(c);
+                System.out.println(getClass().getResource("/images/w" + c + ".png"));
+                this.images.put(types[i].name() + 'w', ImageIO.read(getClass().getResource("images/w" + c + ".png")));
+                this.images.put(types[i].name() + 'b', ImageIO.read(getClass().getResource("images/b" + c + ".png")));
+            }catch(Exception e) {
+                e.printStackTrace();
+                System.exit(0);
+            }
+        }
+
         this.run();
     }
 
@@ -70,17 +93,22 @@ public class SpielFenster extends Fenster {
                 } else {
                     graphics.setColor(Color.black);
                 }
-                graphics.fillRect(i * size + paddingX, j * size + paddingY, size, size);
 
-                Figur figur = figuren[i][j];
+                int x = i * size + paddingX;
+                int y = j * size + paddingY;
+
+                graphics.fillRect(x, y, size, size);
+
+                Figur figur = figuren[j][i];
 
                 if (figur != null) {
+                    BufferedImage figurImage = null;
                     if(figur.farbe == FigurFarbe.WEISS) {
-                        graphics.setColor(Color.red);
+                        figurImage = this.images.get(figur.type.name() + 'w');
                     } else {
-                        graphics.setColor(Color.green);
+                        figurImage = this.images.get(figur.type.name() + 'b');
                     }
-                    graphics.fillOval(i * size + paddingX + size / 4, j * size + paddingY + size / 4, size / 2, size / 2);
+                    if(figurImage != null) graphics.drawImage(figurImage, x, y, size, size, null);
                 }
             }
         }

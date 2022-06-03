@@ -2,7 +2,19 @@ package schach;
 public class Figur {
 
     public static enum FigurType {
-        LÄUFER, SPRINGER, TURM, DAME, KÖNIG, BAUER, KÖNIGIN
+        LÄUFER, SPRINGER, TURM, DAME, KÖNIG, BAUER;
+
+        public char toKey() {
+            switch(this) {
+                case LÄUFER: return 'b';
+                case SPRINGER: return 'k';
+                case TURM: return 'r';
+                case DAME: return 'q';
+                case KÖNIG: return 'k';
+                case BAUER: return 'p';
+                default: return ' ';
+            }
+        }
     }
 
     public static enum FigurFarbe {
