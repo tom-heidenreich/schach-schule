@@ -43,6 +43,7 @@ public class SpielFenster extends Fenster {
                 if(selectedPosition == null) selectedPosition = new Position(xPos, yPos);
                 else if(!selectedPosition.istGleich(new Position(xPos, yPos))) {
                     Position position = new Position(xPos, yPos);
+                    if(schach.brett.istBesetzt(position.y, position.x)) schach.brett.kick(position.y, position.x);
                     schach.brett.move(selectedPosition.y, selectedPosition.x, position.y, position.x);
                     selectedPosition = null;
                 }
