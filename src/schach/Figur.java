@@ -54,6 +54,7 @@ public class Figur {
     public FigurFarbe getFarbe() {
         return farbe;
     }
+    /*
     //give all possible moves in a two dimensional array
     public boolean[][] getMoves(Figur[][] feld) {
         boolean[][] moves = new boolean[8][8];
@@ -71,6 +72,7 @@ public class Figur {
         else if (type == FigurType.BAUER) return bauer(feld);
         else return null;
     }
+    */
 
     //if type is läufer
     private boolean[][] läufer(Figur[][] feld) {
