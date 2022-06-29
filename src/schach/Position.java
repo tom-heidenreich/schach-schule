@@ -8,5 +8,12 @@ public class Position {
         this.y = y;
     }
 
-    
+    public boolean istGleich(Position p) {
+        return p.x == x && p.y == y;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + x + ", " + y + ")";
+    }
 }

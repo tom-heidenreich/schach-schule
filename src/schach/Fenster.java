@@ -10,16 +10,11 @@ public abstract class Fenster {
     private final JFrame frame;
     private final Thread worker;
 
-    public Fenster(MouseAdapter adapter) {
+    public Fenster(int frames) {
         
-
         frame = new JFrame("Schach");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
-
-        if(adapter != null) {
-            frame.addMouseListener(adapter);
-        }
 
         frame.setVisible(true);
 
@@ -27,13 +22,20 @@ public abstract class Fenster {
         frame.createBufferStrategy(2);
         BufferStrategy bufferStrategy = frame.getBufferStrategy();
 
+        frame.setVisible(false);
+
+        int frameDelay = 1000 / frames;
+        
         worker = new Thread(new Runnable() {
             @Override
             public void run() {
                 while(true) {
+                    long start = System.currentTimeMillis();
                     zeichne(bufferStrategy);
                     try {
-                        Thread.sleep(10);
+                        long delay = frameDelay- System.currentTimeMillis() - start;
+                        if(delay < 0) delay = 0;
+                        Thread.sleep(delay);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -42,17 +44,23 @@ public abstract class Fenster {
         });
     }
 
-    protected final void run() {
-        worker.run();
-    }
-
-    public Fenster() {
-        this(null);
-    }
-
     protected void setSize(Dimension dimension) {
         frame.setSize(dimension);
     }
 
+    protected final void setAdapter(MouseAdapter adapter) {
+        frame.addMouseListener(adapter);
+    }
+
     protected abstract void zeichne(BufferStrategy strategy);
+
+    public void start() {
+        this.frame.setVisible(true);
+        worker.start();
+    }
+
+    public void stop() {
+        this.frame.setVisible(false);
+        worker.interrupt();
+    }
 }

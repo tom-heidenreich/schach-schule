@@ -58,17 +58,17 @@ public class Figur {
     public boolean[][] getMoves(Figur[][] feld) {
         boolean[][] moves = new boolean[8][8];
         //if type is läufer
-        if (type == FigurType.LÄUFER)return boolean[][] läufer(feld)); 
+        if (type == FigurType.LÄUFER)return läufer(feld)); 
         //if type is Springer
-        else if (type == FigurType.SPRINGER) return boolean[][] springer(feld);
+        else if (type == FigurType.SPRINGER) return springer(feld);
         //if type is Turm
-        else if (type == FigurType.TURM) return boolean[][] turm(feld);
+        else if (type == FigurType.TURM) return turm(feld);
         //if type is Dame
-        else if (type == FigurType.DAME) return boolean[][] dame(feld);
+        else if (type == FigurType.DAME) return dame(feld);
         //if type is König
-        else if (type == FigurType.KÖNIG) return boolean[][] könig(feld);
+        else if (type == FigurType.KÖNIG) return könig(feld);
         //if type is Bauern
-        else if (type == FigurType.BAUER) return boolean[][] bauer(feld);
+        else if (type == FigurType.BAUER) return bauer(feld);
         else return null;
     }
 

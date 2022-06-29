@@ -44,4 +44,8 @@ public class Brett {
     public boolean istBesetzt(int x, int y) {
         return feld[x][y] != null;
     }
+
+    public void kick(int x, int y) {
+        feld[x][y] = null;
+    }
 }
