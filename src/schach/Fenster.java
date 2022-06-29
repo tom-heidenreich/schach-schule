@@ -44,6 +44,10 @@ public abstract class Fenster {
         });
     }
 
+    protected JFrame getFrame() {
+        return frame;
+    }
+
     protected void setSize(Dimension dimension) {
         frame.setSize(dimension);
     }
