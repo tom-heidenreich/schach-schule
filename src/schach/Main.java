@@ -7,6 +7,6 @@ public class Main {
 
         Schach schach = new Schach(spieler1, spieler2);
 
-        schach.setzeFenster(new StartFenster());
+        schach.setzeFenster(new SpielFenster(schach));
     }
 }

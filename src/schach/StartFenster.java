@@ -22,7 +22,10 @@ public class StartFenster extends Fenster {
         g.clearRect(0, 0, (int) dimension.getWidth(), (int) dimension.getHeight());
 
         g.setColor(Color.black);
-        g.fillRect(150, 100, 200, 100);
+        g.drawRect(150, 100, 200, 100);
+
+        // draw text
+        g.drawString("Schach", 200, 150);
 
         strategy.show();
     }
