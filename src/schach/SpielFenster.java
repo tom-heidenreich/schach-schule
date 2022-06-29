@@ -66,14 +66,14 @@ public class SpielFenster extends Fenster {
                     Figur ziel = schach.brett.getFeld()[position.y][position.x];
                     if(ziel == null || ziel.farbe != aktuellerSpieler.farbe) {
                         // if move is possible
-                        boolean[][] moves = figur.getMoves(schach.brett.getFeld(), xPos, yPos);
+                        boolean[][] moves = figur.getMoves(schach.brett.getFeld(), selectedPosition.x, selectedPosition.y);
                         for(int i = 0; i<moves.length; i++) {
                             for(int j = 0; j<moves[i].length; j++) {
                                 System.out.print(moves[i][j] + " ");
                             }
                             System.out.println();
-                            System.out.println();
                         }
+                        System.out.println();
                         if(!moves[xPos][yPos]) return;
 
                         if(schach.brett.istBesetzt(position.y, position.x)) schach.brett.kick(position.y, position.x);
