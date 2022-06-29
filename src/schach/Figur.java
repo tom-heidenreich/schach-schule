@@ -108,18 +108,7 @@ public class Figur {
     private boolean[][] turm(Figur[][] feld, int x, int y) {
         boolean[][] moves = new boolean[8][8];
         // go from x and y to the right
-        for (int i = x + 1; i + x < 8; i++) {
-            if (feld[i][y] == null) {
-                moves[i][y] = true;
-            } else if (feld[i][y].getFarbe() != farbe) {
-                moves[i][y] = true;
-                break;
-            } else {
-                break;
-            }
-        }
-        // go from x and y to the left
-        for (int i = x - 1; i + x > 0; i--) {
+        for (int i = 0; i + x < 7; i++) {
             if (feld[i][y] == null) {
                 moves[i][y] = true;
             } else if (feld[i][y].getFarbe() != farbe) {
@@ -130,18 +119,7 @@ public class Figur {
             }
         }
         // go from x and y to the top
-        for (int i = y + 1; i + y < 8; i++) {
-            if (feld[x][i] == null) {
-                moves[x][i] = true;
-            } else if (feld[x][i].getFarbe() != farbe) {
-                moves[x][i] = true;
-                break;
-            } else {
-                break;
-            }
-        }
-        // go from x and y to the bottom
-        for (int i = y - 1; i + y > 0; i--) {
+        for (int i = 0; i + y < 7; i++) {
             if (feld[x][i] == null) {
                 moves[x][i] = true;
             } else if (feld[x][i].getFarbe() != farbe) {
