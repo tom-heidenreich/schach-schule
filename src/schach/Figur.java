@@ -67,26 +67,19 @@ public class Figur {
     // give all possible moves in a two dimensional array
     public boolean[][] getMoves(Figur[][] feld) {
         boolean[][] moves = new boolean[8][8];
-        // if type is läufer
-        if (type == FigurType.LÄUFER)
-            return läufer(feld);
-        // if type is Springer
-        else if (type == FigurType.SPRINGER)
-            return springer(feld);
-        // if type is Turm
-        else if (type == FigurType.TURM)
-            return turm(feld);
-        // if type is Dame
-        else if (type == FigurType.DAME)
-            return dame(feld);
-        // if type is König
-        else if (type == FigurType.KÖNIG)
-            return könig(feld);
-        // if type is Bauern
-        else if (type == FigurType.BAUER)
-            return bauer(feld);
-        else
-            return null;
+        //if type is Läufer
+        if (type == FigurType.LÄUFER) return läufer(feld); 
+        //if type is Springer
+        else if (type == FigurType.SPRINGER) return springer(feld);
+        //if type is Turm
+        else if (type == FigurType.TURM) return turm(feld);
+        //if type is Dame
+        else if (type == FigurType.DAME) return dame(feld);
+        //if type is König
+        else if (type == FigurType.KÖNIG) return könig(feld);
+        //if type is Bauer
+        else if (type == FigurType.BAUER) return bauer(feld);
+        else return null;
     }
 
     // if type is läufer
@@ -182,6 +175,41 @@ public class Figur {
                     moves[x + i][y + j] = true;
                     return moves;
                 }
+            }
+        }
+        return moves;
+    }
+    
+    //if type is bauer
+    private boolean[][] bauer(Figur[][] feld) {
+        boolean moves[][] = new boolean[8][8];
+        if (farbe == FigurFarbe.WEISS) {
+            if (feld[x][y+1] == null) {
+                moves[x][y+1] = true;
+                if (feld[x][y+2] == null && y == 1){
+                    moves[x][y+2] = true;
+                }
+            }
+            if (feld[x-1][y+1].getFarbe() != farbe) {
+                moves[x-1][y+1] = true;
+            }
+            if (feld[x+1][y+1].getFarbe() != farbe) {
+                moves[x+1][y+1] = true;
+            }
+        }
+
+        if (farbe == FigurFarbe.SCHWARZ) {
+            if (feld[x][y-1] == null) {
+                moves[x][y-1] = true;
+                if (feld[x][y-2] == null && y == 7){
+                    moves[x][y-2] = true;
+                }
+            }
+            if (feld[x-1][y-1].getFarbe() != farbe) {
+                moves[x-1][y-1] = true;
+            }
+            if (feld[x+1][y-1].getFarbe() != farbe) {
+                moves[x+1][y-1] = true;
             }
         }
         return moves;
