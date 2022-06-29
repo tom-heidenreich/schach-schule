@@ -49,17 +49,33 @@ public class SpielFenster extends Fenster {
                     if(figur == null) return;
                     // Figur auf der Position
                     if(figur.farbe != aktuellerSpieler.farbe) return;
-
                     selectedPosition = new Position(xPos, yPos);
                 }
                 else if(!selectedPosition.istGleich(new Position(xPos, yPos))) {
-                    // Figur auf der Position
-                    Figur figur = schach.brett.getFeld()[selectedPosition.y][selectedPosition.x];
-                    if(figur != null && figur.farbe != aktuellerSpieler.farbe) return;
                     // Zielposition
                     Position position = new Position(xPos, yPos);
+
+                    // Figur auf der Position
+                    Figur figur = schach.brett.getFeld()[selectedPosition.y][selectedPosition.x];
+                    if(figur == null) return;
+                    if(figur.farbe != aktuellerSpieler.farbe) {
+                        selectedPosition = position;
+                        return;
+                    }
+                    
                     Figur ziel = schach.brett.getFeld()[position.y][position.x];
                     if(ziel == null || ziel.farbe != aktuellerSpieler.farbe) {
+                        // if move is possible
+                        boolean[][] moves = figur.getMoves(schach.brett.getFeld(), yPos, xPos);
+                        for(int i = 0; i<moves.length; i++) {
+                            for(int j = 0; j<moves[i].length; j++) {
+                                System.out.print(moves[i][j] + " ");
+                            }
+                            System.out.println();
+                            System.out.println();
+                        }
+                        if(!figur.getMoves(schach.brett.getFeld())[yPos][xPos]) return;
+
                         if(schach.brett.istBesetzt(position.y, position.x)) schach.brett.kick(position.y, position.x);
                         schach.brett.move(selectedPosition.y, selectedPosition.x, position.y, position.x);
                         schach.nächsterSpieler();
