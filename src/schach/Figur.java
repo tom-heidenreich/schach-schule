@@ -108,7 +108,7 @@ public class Figur {
     private boolean[][] turm(Figur[][] feld, int x, int y) {
         boolean[][] moves = new boolean[8][8];
         // go from x and y to the right
-        for (int i = 0; i + x < 7; i++) {
+        for (int i = 0; i < 7; i++) {
             if (feld[i][y] == null) {
                 moves[i][y] = true;
             } else if (feld[i][y].getFarbe() != farbe) {
@@ -119,7 +119,7 @@ public class Figur {
             }
         }
         // go from x and y to the top
-        for (int i = 0; i + y < 7; i++) {
+        for (int i = 0; i < 7; i++) {
             if (feld[x][i] == null) {
                 moves[x][i] = true;
             } else if (feld[x][i].getFarbe() != farbe) {
@@ -167,7 +167,8 @@ public class Figur {
                     moves[x][y+2] = true;
                 }
             }
-            if (feld[x-1][y+1].getFarbe() != farbe) {
+            Figur a = feld[x-1][y+1];
+            if (a != null && a.getFarbe() != farbe) {
                 moves[x-1][y+1] = true;
             }
             if (feld[x+1][y+1].getFarbe() != farbe) {
