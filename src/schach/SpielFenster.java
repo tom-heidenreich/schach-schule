@@ -69,7 +69,7 @@ public class SpielFenster extends Fenster {
                         boolean[][] moves = figur.getMoves(schach.brett.getFeld(), selectedPosition.x, selectedPosition.y);
                         for(int i = 0; i<moves.length; i++) {
                             for(int j = 0; j<moves[i].length; j++) {
-                                System.out.print(moves[i][j] + " ");
+                                System.out.print(moves[j][i] + " ");
                             }
                             System.out.println();
                         }
