@@ -30,15 +30,15 @@ public class Figur {
     }
 
     // create variables
-    protected int x;
-    protected int y;
+    protected int xalt;
+    protected int yalt;
     protected FigurType type;
     protected FigurFarbe farbe;
 
     // create constructor
     public Figur(int x, int y, FigurType type, FigurFarbe farbe) {
-        this.x = x;
-        this.y = y;
+        this.xalt = x;
+        this.yalt = y;
         this.type = type;
         this.farbe = farbe;
 
@@ -46,12 +46,12 @@ public class Figur {
 
     // give x position
     public int getX() {
-        return x;
+        return xalt;
     }
 
     // give y position
     public int getY() {
-        return y;
+        return yalt;
     }
 
     // give type
@@ -65,25 +65,24 @@ public class Figur {
     }
 
     // give all possible moves in a two dimensional array
-    public boolean[][] getMoves(Figur[][] feld) {
-        boolean[][] moves = new boolean[8][8];
+    public boolean[][] getMoves(Figur[][] feld, int x, int y) {
         //if type is Läufer
-        if (type == FigurType.LÄUFER) return läufer(feld); 
+        if (type == FigurType.LÄUFER) return läufer(feld, x, y); 
         //if type is Springer
-        else if (type == FigurType.SPRINGER) return springer(feld);
+        else if (type == FigurType.SPRINGER) return springer(feld, x, y);
         //if type is Turm
-        else if (type == FigurType.TURM) return turm(feld);
+        else if (type == FigurType.TURM) return turm(feld, x, y);
         //if type is Dame
-        else if (type == FigurType.DAME) return dame(feld);
+        else if (type == FigurType.DAME) return dame(feld, x, y);
         //if type is König
-        else if (type == FigurType.KÖNIG) return könig(feld);
+        else if (type == FigurType.KÖNIG) return könig(feld, x, y);
         //if type is Bauer
-        else if (type == FigurType.BAUER) return bauer(feld);
+        else if (type == FigurType.BAUER) return bauer(feld, x, y);
         else return null;
     }
 
     // if type is läufer
-    private boolean[][] läufer(Figur[][] feld) {
+    private boolean[][] läufer(Figur[][] feld, int x, int y) {
         boolean[][] moves = new boolean[8][8];
         // for every x = y if no figure is in the way and the position is in the board
         for (int i = -7; i < 7; i++) {
@@ -95,7 +94,7 @@ public class Figur {
     }
 
     // if type is Springer
-    private boolean[][] springer(Figur[][] feld) {
+    private boolean[][] springer(Figur[][] feld, int x, int y) {
         boolean[][] moves = new boolean[8][8];
         for (int i = -7; i < 7; i++) {
             if (x + i < 8 && x + i > 0 && y + i < 8 && y + i > 0 && feld[x + i][y + i] == null) {
@@ -106,7 +105,7 @@ public class Figur {
     }
 
     // if type is turm
-    private boolean[][] turm(Figur[][] feld) {
+    private boolean[][] turm(Figur[][] feld, int x, int y) {
         boolean[][] moves = new boolean[8][8];
         // go from x and y to the right
         for (int i = x + 1; i + x < 8; i++) {
@@ -156,18 +155,18 @@ public class Figur {
     }
 
     // if type is dame
-    private boolean[][] dame(Figur[][] feld) {
-        if (turm(feld) != null) {
-            return turm(feld);
-        } else if (läufer(feld) != null) {
-            return läufer(feld);
+    private boolean[][] dame(Figur[][] feld, int x, int y) {
+        if (turm(feld, x, y) != null) {
+            return turm(feld, x, y);
+        } else if (läufer(feld, x, y) != null) {
+            return läufer(feld, x, y);
         } else {
             return null;
         }
     }
 
     // if type is könig
-    private boolean[][] könig(Figur[][] feld) {
+    private boolean[][] könig(Figur[][] feld, int x, int y) {
         boolean[][] moves = new boolean[8][8];
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
@@ -181,7 +180,7 @@ public class Figur {
     }
     
     //if type is bauer
-    private boolean[][] bauer(Figur[][] feld) {
+    private boolean[][] bauer(Figur[][] feld, int x, int y) {
         boolean moves[][] = new boolean[8][8];
         if (farbe == FigurFarbe.WEISS) {
             if (feld[x][y+1] == null) {
