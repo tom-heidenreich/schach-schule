@@ -148,13 +148,20 @@ public class Figur {
 
     // if type is dame
     private boolean[][] dame(Figur[][] feld, int x, int y) {
-        if (turm(feld, x, y) != null) {
-            return turm(feld, x, y);
-        } else if (läufer(feld, x, y) != null) {
-            return läufer(feld, x, y);
-        } else {
-            return null;
+        boolean[][] moves = new boolean[8][8];
+
+        boolean[][] läufer = läufer(feld, x, y);
+        boolean[][] turm = turm(feld, x, y);
+
+        for(int i = 0; i < 8; i++) {
+            for(int j = 0; j < 8; j++) {
+                if(läufer[i][j] || turm[i][j]) {
+                    moves[i][j] = true;
+                }
+            }
         }
+
+        return moves;
     }
 
     // if type is könig
