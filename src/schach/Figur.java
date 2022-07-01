@@ -89,7 +89,7 @@ public class Figur {
             int localX = x + i;
             int localY = y + i;
             if(localX < 0 || localX > 7 || localY < 0 || localY > 7) break;
-            // if(feld[localX][localY] != null) break;
+            if(feld[localY][localX] != null) break;
             moves[localX][localY] = true;
         }
         // up, right
@@ -97,15 +97,23 @@ public class Figur {
             int localX = x - i;
             int localY = y + i;
             if(localX < 0 || localX > 7 || localY < 0 || localY > 7) break;
-            // if(feld[localX][localY] != null) break;
+            if(feld[localY][localX] != null) break;
             moves[localX][localY] = true;
         }
         // down, left
-        for(int i = -7; i < 1; i++) {
+        for(int i = 0; i < 8; i++) {
             int localX = x + i;
-            int localY = y + i;
+            int localY = y - i;
             if(localX < 0 || localX > 7 || localY < 0 || localY > 7) break;
-            // if(feld[localX][localY] != null) break;
+            if(feld[localY][localX] != null) break;
+            moves[localX][localY] = true;
+        }
+        // down, right
+        for(int i = 0; i < 8; i++) {
+            int localX = x - i;
+            int localY = y - i;
+            if(localX < 0 || localX > 7 || localY < 0 || localY > 7) break;
+            if(feld[localY][localX] != null) break;
             moves[localX][localY] = true;
         }
         return moves;
