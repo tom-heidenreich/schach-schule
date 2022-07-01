@@ -140,7 +140,6 @@ public class Figur {
         // right
         for (int i = 0; i < 8; i++) {
             int localX = x + i;
-            System.out.println(localX + " " + y);
             if(localX > 7 || localX < 0) break;
             if(feld[y][localX] != null) break;
             moves[localX][y] = true;
@@ -148,7 +147,6 @@ public class Figur {
         // left
         for (int i = -7; i < 1; i++) {
             int localX = x - i;
-            System.out.println(localX + " " + y);
             if(localX > 7 || localX < 0) break;
             if(feld[y][localX] != null) break;
             moves[localX][y] = true;
@@ -156,7 +154,6 @@ public class Figur {
         // up
         for (int i = 0; i < 8; i++) {
             int localY = y + i;
-            System.out.println(x + " " + localY);
             if(localY > 7 || localY < 0) break;
             if(feld[localY][x] != null) break;
             moves[x][localY] = true;
@@ -164,7 +161,6 @@ public class Figur {
         // down
         for (int i = -7; i < 1; i++) {
             int localY = y - i;
-            System.out.println(x + " " + localY);
             if(localY > 7 || localY < 0) break;
             if(feld[localY][x] != null) break;
             moves[x][localY] = true;
