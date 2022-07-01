@@ -96,9 +96,21 @@ public class Figur {
     // if type is Springer
     private boolean[][] springer(Figur[][] feld, int x, int y) {
         boolean[][] moves = new boolean[8][8];
-        for (int i = -7; i < 7; i++) {
-            if (x + i < 8 && x + i > 0 && y + i < 8 && y + i > 0 && feld[x + i][y + i] == null) {
-                moves[x + i][y + i] = true;
+        for(int i = -2; i < 3; i++) {
+            for(int j = -2; j < 3; j++) {
+                int localX = x + i;
+                int localY = y + j;
+                if(localX < 8 && localX >= 0 && localY < 8 && localY >= 0) {
+                    if(i == -2 && (j == -1 || j == 1)) {
+                        moves[localX][localY] = true;
+                    } else if(i == -1 && (j == -2 || j == 2)) {
+                        moves[localX][localY] = true;
+                    } else if(i == 1 && (j == -2 || j == 2)) {
+                        moves[localX][localY] = true;
+                    } else if(i == 2 && (j == -1 || j == 1)) {
+                        moves[localX][localY] = true;
+                    }
+                }
             }
         }
         return moves;
