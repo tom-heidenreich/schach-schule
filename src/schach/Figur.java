@@ -119,27 +119,29 @@ public class Figur {
     // if type is turm
     private boolean[][] turm(Figur[][] feld, int x, int y) {
         boolean[][] moves = new boolean[8][8];
-        // go from x and y to the right
-        for (int i = 0; i < 7; i++) {
-            if (feld[i][y] == null) {
-                moves[i][y] = true;
-            } else if (feld[i][y].getFarbe() != farbe) {
-                moves[i][y] = true;
-                break;
-            } else {
-                break;
-            }
+        // right
+        for (int i = 0; i < 8; i++) {
+            int localX = x + i;
+            if(feld[y][localX] != null) break;
+            moves[localX][y] = true;
         }
-        // go from x and y to the top
-        for (int i = 0; i < 7; i++) {
-            if (feld[x][i] == null) {
-                moves[x][i] = true;
-            } else if (feld[x][i].getFarbe() != farbe) {
-                moves[x][i] = true;
-                break;
-            } else {
-                break;
-            }
+        // left
+        for (int i = 0; i < 8; i++) {
+            int localX = x - i;
+            if(feld[y][localX] != null) break;
+            moves[localX][y] = true;
+        }
+        // up
+        for (int i = 0; i < 8; i++) {
+            int localY = y + i;
+            if(feld[localY][x] != null) break;
+            moves[x][localY] = true;
+        }
+        // down
+        for (int i = 0; i < 8; i++) {
+            int localY = y - i;
+            if(feld[localY][x] != null) break;
+            moves[x][localY] = true;
         }
         return moves;
     }
