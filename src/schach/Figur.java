@@ -85,11 +85,28 @@ public class Figur {
     private boolean[][] läufer(Figur[][] feld, int x, int y) {
         boolean[][] moves = new boolean[8][8];
         // up, left
-        for(int i = 1; i < 8; i++) {
-            if(x - i < 0 || y - i < 0) break;
-            if(feld[x - i][y - i] == null) moves[x - i][y - i] = true;
-            else if (feld[x - i][y - i].getFarbe() != farbe) moves[x - i][y - i] = true;
-            else break;
+        for(int i = 0; i < 8; i++) {
+            int localX = x + i;
+            int localY = y + i;
+            if(localX < 0 || localX > 7 || localY < 0 || localY > 7) break;
+            // if(feld[localX][localY] != null) break;
+            moves[localX][localY] = true;
+        }
+        // up, right
+        for(int i = 0; i < 8; i++) {
+            int localX = x - i;
+            int localY = y + i;
+            if(localX < 0 || localX > 7 || localY < 0 || localY > 7) break;
+            // if(feld[localX][localY] != null) break;
+            moves[localX][localY] = true;
+        }
+        // down, left
+        for(int i = -7; i < 1; i++) {
+            int localX = x + i;
+            int localY = y + i;
+            if(localX < 0 || localX > 7 || localY < 0 || localY > 7) break;
+            // if(feld[localX][localY] != null) break;
+            moves[localX][localY] = true;
         }
         return moves;
     }
@@ -123,28 +140,32 @@ public class Figur {
         // right
         for (int i = 0; i < 8; i++) {
             int localX = x + i;
-            if(localX > 7 && localX < 0) break;
+            System.out.println(localX + " " + y);
+            if(localX > 7 || localX < 0) break;
             if(feld[y][localX] != null) break;
             moves[localX][y] = true;
         }
         // left
         for (int i = -7; i < 1; i++) {
             int localX = x - i;
-            if(localX > 7 && localX < 0) break;
+            System.out.println(localX + " " + y);
+            if(localX > 7 || localX < 0) break;
             if(feld[y][localX] != null) break;
             moves[localX][y] = true;
         }
         // up
         for (int i = 0; i < 8; i++) {
             int localY = y + i;
-            if(localY > 7 && localY < 0) break;
+            System.out.println(x + " " + localY);
+            if(localY > 7 || localY < 0) break;
             if(feld[localY][x] != null) break;
             moves[x][localY] = true;
         }
         // down
         for (int i = -7; i < 1; i++) {
             int localY = y - i;
-            if(localY > 7 && localY < 0) break;
+            System.out.println(x + " " + localY);
+            if(localY > 7 || localY < 0) break;
             if(feld[localY][x] != null) break;
             moves[x][localY] = true;
         }
