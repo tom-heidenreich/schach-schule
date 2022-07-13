@@ -31,6 +31,7 @@ public class SpielFenster extends Fenster {
 
     private Position selectedPosition;
 
+    private boolean[][] highlightedPositions;
     private final MouseAdapter adapter = new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent evt) {
@@ -50,6 +51,7 @@ public class SpielFenster extends Fenster {
                     // Figur auf der Position
                     if(figur.farbe != aktuellerSpieler.farbe) return;
                     selectedPosition = new Position(xPos, yPos);
+                    highlightedPositions = figur.getMoves(schach.brett.getFeld(), xPos, yPos);
                 }
                 else if(!selectedPosition.istGleich(new Position(xPos, yPos))) {
                     // Zielposition
@@ -82,12 +84,13 @@ public class SpielFenster extends Fenster {
                         schach.nächsterSpieler();
                     }
                     selectedPosition = null;
+                    highlightedPositions = new boolean[8][8];
                 }
             }
         }
     };
 
-    public SpielFenster(Schach schach) {
+    public SpielFenster(Schach schach, Main main) {
         // click listener
         super(144);
         this.schach = schach;
@@ -136,6 +139,7 @@ public class SpielFenster extends Fenster {
         // draw board
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
+
                 if ((i + j) % 2 == 0) {
                     graphics.setColor(Color.white);
                 } else {
@@ -146,6 +150,19 @@ public class SpielFenster extends Fenster {
                 int y = j * size + paddingY;
 
                 graphics.fillRect(x, y, size, size);
+
+                // highlight
+                if(highlightedPositions != null && highlightedPositions[i][j]) {
+                    Figur ziel = schach.brett.getFeld()[j][i];
+                    if(ziel != null && ziel.farbe == schach.aktuellerSpieler().farbe);
+                    else {
+                        graphics.setColor(Color.green);
+                        int posX = paddingX + i * size;
+                        int posY = paddingY + j * size;
+                        int padding = 20;
+                        graphics.fillOval(posX + padding, posY + padding, size - padding*2, size - padding*2);
+                    }
+                }
 
                 boolean isSelected = selectedPosition != null && selectedPosition.x == i && selectedPosition.y == j;
                 if(isSelected && schach.brett.istBesetzt(j, i)) {
