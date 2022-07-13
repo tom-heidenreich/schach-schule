@@ -144,37 +144,38 @@ public class Figur {
 
     // if type is turm
     private boolean[][] turm(Figur[][] feld, int x, int y) {
+        System.out.println("x: " + x + " y: " + y);
         boolean[][] moves = new boolean[8][8];
         // right
-        for (int i = 0; i < 8; i++) {
+        for (int i = 1; i < 8; i++) {
             int localX = x + i;
             if(localX > 7 || localX < 0) break;
-            if(feld[y][localX] != null) break;
-            feld[y][localX].type = FigurType.KÖNIG;
+            if(feld[y][localX] != null && feld[y][localX].farbe == farbe) break;
+            if(feld[y][localX-1].farbe != farbe) break;
             moves[localX][y] = true;
         }
         // left
-        for (int i = -7; i < 1; i++) {
+        for (int i = 1; i < 8; i++) {
             int localX = x - i;
             if(localX > 7 || localX < 0) break;
-            if(feld[y][localX] != null) break;
-            feld[y][localX].type = FigurType.KÖNIG;
+            if(feld[y][localX] != null && feld[y][localX].farbe == farbe) break;
+            if(feld[y][localX+1].farbe != farbe) break;
             moves[localX][y] = true;
         }
         // up
-        for (int i = 0; i < 8; i++) {
-            int localY = y + i;
+        for (int i = 1; i < 8; i++) {
+            int localY = y - i;
             if(localY > 7 || localY < 0) break;
-            if(feld[localY][x] != null) break;
-            feld[localY][x].type = FigurType.KÖNIG;
+            if(feld[localY][x] != null && feld[localY][x].farbe == farbe) break;
+            if(feld[localY+1][x].farbe != farbe) break;
             moves[x][localY] = true;
         }
         // down
-        for (int i = -7; i < 1; i++) {
-            int localY = y - i;
+        for (int i = 1; i < 8; i++) {
+            int localY = y + i;
             if(localY > 7 || localY < 0) break;
-            if(feld[localY][x] != null) break;
-            feld[localY][x].type = FigurType.KÖNIG;
+            if(feld[localY][x] != null && feld[localY][x].farbe == farbe) break;
+            if(feld[localY-1][x].farbe != farbe) break;
             moves[x][localY] = true;
         }
         return moves;
@@ -215,6 +216,7 @@ public class Figur {
     //if type is bauer
     private boolean[][] bauer(Figur[][] feld, int x, int y) {
         boolean moves[][] = new boolean[8][8];
+
         if (farbe == FigurFarbe.WEISS) {
             if (feld[x][y+1] == null) {
                 moves[x][y+1] = true;
