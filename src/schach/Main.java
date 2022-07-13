@@ -3,13 +3,28 @@ package schach;
 import schach.Figur.FigurFarbe;
 
 public class Main {
+
+    private Schach schach;
+
     public static void main(String[] args) {
+        Main main = new Main();
+        main.schach = new Schach();
+        main.schach.setzeFenster(new StartFenster(main));
+    }
 
-        Spieler spieler1 = new Spieler("Spieler 1", FigurFarbe.WEISS);
-        Spieler spieler2 = new Spieler("Spieler 2", FigurFarbe.SCHWARZ);
+    public void starteSpiel(String name1, String name2) {
+        schach.setzeSpieler(new Spieler(name1, FigurFarbe.WEISS), new Spieler(name2, FigurFarbe.SCHWARZ));
+        schach.setzeFenster(new SpielFenster(schach, this));
+    }
 
-        Schach schach = new Schach(spieler1, spieler2);
+    public void neustarten() {
+        Spieler spieler1 = schach.spieler1;
+        Spieler spieler2 = schach.spieler2;
+        schach = new Schach();
+        schach.setzeSpieler(spieler1, spieler2);
+    }
 
-        schach.setzeFenster(new SpielFenster(schach));
+    public void beenden() {
+        schach.setzeFenster(new EndFenster(schach, this));
     }
 }

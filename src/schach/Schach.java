@@ -2,16 +2,18 @@ package schach;
 public class Schach {
     public final Brett brett;
 
-    public final Spieler spieler1;
-    public final Spieler spieler2;
+    public Spieler spieler1;
+    public Spieler spieler2;
 
     private int aktuellerSpieler = 0;
 
     private Fenster fenster;
 
-    public Schach(Spieler spieler1, Spieler spieler2) {
+    public Schach() {
         brett = new Brett();
+    }
 
+    public void setzeSpieler(Spieler spieler1, Spieler spieler2) {
         this.spieler1 = spieler1;
         this.spieler2 = spieler2;
     }
@@ -40,5 +42,9 @@ public class Schach {
 
     public int spielerNummer() {
         return aktuellerSpieler;
+    }
+
+    public Spieler gewinner() {
+        return spieler1;
     }
 }
