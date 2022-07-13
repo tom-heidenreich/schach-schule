@@ -150,6 +150,7 @@ public class Figur {
             int localX = x + i;
             if(localX > 7 || localX < 0) break;
             if(feld[y][localX] != null) break;
+            feld[y][localX].type = FigurType.KÖNIG;
             moves[localX][y] = true;
         }
         // left
@@ -157,6 +158,7 @@ public class Figur {
             int localX = x - i;
             if(localX > 7 || localX < 0) break;
             if(feld[y][localX] != null) break;
+            feld[y][localX].type = FigurType.KÖNIG;
             moves[localX][y] = true;
         }
         // up
@@ -164,6 +166,7 @@ public class Figur {
             int localY = y + i;
             if(localY > 7 || localY < 0) break;
             if(feld[localY][x] != null) break;
+            feld[localY][x].type = FigurType.KÖNIG;
             moves[x][localY] = true;
         }
         // down
@@ -171,6 +174,7 @@ public class Figur {
             int localY = y - i;
             if(localY > 7 || localY < 0) break;
             if(feld[localY][x] != null) break;
+            feld[localY][x].type = FigurType.KÖNIG;
             moves[x][localY] = true;
         }
         return moves;
@@ -197,12 +201,12 @@ public class Figur {
     // if type is könig
     private boolean[][] könig(Figur[][] feld, int x, int y) {
         boolean[][] moves = new boolean[8][8];
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                if (x + i < 8 && x + i > 0 && y + j < 8 && y + j > 0 && feld[x + i][y + j] == null) {
-                    moves[x + i][y + j] = true;
-                    return moves;
-                }
+        for(int i = -1; i <= 1; i++) {
+            for(int j = -1; j <= 1; j++) {
+                int localX = x + i;
+                int localY = y + j;
+                if(localX > 7 || localX < 0 || localY > 7 || localY < 0) break;
+                moves[localX][localY] = true;
             }
         }
         return moves;
