@@ -151,7 +151,7 @@ public class Figur {
             int localX = x + i;
             if(localX > 7 || localX < 0) break;
             if(feld[y][localX] != null && feld[y][localX].farbe == farbe) break;
-            if(feld[y][localX-1].farbe != farbe) break;
+            if(feld[y][localX-1] != null && feld[y][localX-1].farbe != farbe) break;
             moves[localX][y] = true;
         }
         // left
@@ -159,7 +159,7 @@ public class Figur {
             int localX = x - i;
             if(localX > 7 || localX < 0) break;
             if(feld[y][localX] != null && feld[y][localX].farbe == farbe) break;
-            if(feld[y][localX+1].farbe != farbe) break;
+            if(feld[y][localX+1] != null && feld[y][localX+1].farbe != farbe) break;
             moves[localX][y] = true;
         }
         // up
@@ -167,7 +167,7 @@ public class Figur {
             int localY = y - i;
             if(localY > 7 || localY < 0) break;
             if(feld[localY][x] != null && feld[localY][x].farbe == farbe) break;
-            if(feld[localY+1][x].farbe != farbe) break;
+            if(feld[localY+1][x] != null && feld[localY+1][x].farbe != farbe) break;
             moves[x][localY] = true;
         }
         // down
@@ -175,7 +175,7 @@ public class Figur {
             int localY = y + i;
             if(localY > 7 || localY < 0) break;
             if(feld[localY][x] != null && feld[localY][x].farbe == farbe) break;
-            if(feld[localY-1][x].farbe != farbe) break;
+            if(feld[localY-1][x] != null && feld[localY-1][x].farbe != farbe) break;
             moves[x][localY] = true;
         }
         return moves;
