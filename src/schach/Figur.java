@@ -84,11 +84,37 @@ public class Figur {
     // if type is läufer
     private boolean[][] läufer(Figur[][] feld, int x, int y) {
         boolean[][] moves = new boolean[8][8];
-        // for every x = y if no figure is in the way and the position is in the board
-        for (int i = -7; i < 7; i++) {
-            if (x + i < 8 && x + i > 0 && y + i < 8 && y + i > 0 && feld[x + i][y + i] == null) {
-                moves[x + i][y + i] = true;
-            }
+        // up, left
+        for(int i = 0; i < 8; i++) {
+            int localX = x + i;
+            int localY = y + i;
+            if(localX < 0 || localX > 7 || localY < 0 || localY > 7) break;
+            if(feld[localY][localX] != null) break;
+            moves[localX][localY] = true;
+        }
+        // up, right
+        for(int i = 0; i < 8; i++) {
+            int localX = x - i;
+            int localY = y + i;
+            if(localX < 0 || localX > 7 || localY < 0 || localY > 7) break;
+            if(feld[localY][localX] != null) break;
+            moves[localX][localY] = true;
+        }
+        // down, left
+        for(int i = 0; i < 8; i++) {
+            int localX = x + i;
+            int localY = y - i;
+            if(localX < 0 || localX > 7 || localY < 0 || localY > 7) break;
+            if(feld[localY][localX] != null) break;
+            moves[localX][localY] = true;
+        }
+        // down, right
+        for(int i = 0; i < 8; i++) {
+            int localX = x - i;
+            int localY = y - i;
+            if(localX < 0 || localX > 7 || localY < 0 || localY > 7) break;
+            if(feld[localY][localX] != null) break;
+            moves[localX][localY] = true;
         }
         return moves;
     }
@@ -96,9 +122,21 @@ public class Figur {
     // if type is Springer
     private boolean[][] springer(Figur[][] feld, int x, int y) {
         boolean[][] moves = new boolean[8][8];
-        for (int i = -7; i < 7; i++) {
-            if (x + i < 8 && x + i > 0 && y + i < 8 && y + i > 0 && feld[x + i][y + i] == null) {
-                moves[x + i][y + i] = true;
+        for(int i = -2; i < 3; i++) {
+            for(int j = -2; j < 3; j++) {
+                int localX = x + i;
+                int localY = y + j;
+                if(localX < 8 && localX >= 0 && localY < 8 && localY >= 0) {
+                    if(i == -2 && (j == -1 || j == 1)) {
+                        moves[localX][localY] = true;
+                    } else if(i == -1 && (j == -2 || j == 2)) {
+                        moves[localX][localY] = true;
+                    } else if(i == 1 && (j == -2 || j == 2)) {
+                        moves[localX][localY] = true;
+                    } else if(i == 2 && (j == -1 || j == 1)) {
+                        moves[localX][localY] = true;
+                    }
+                }
             }
         }
         return moves;
@@ -106,52 +144,70 @@ public class Figur {
 
     // if type is turm
     private boolean[][] turm(Figur[][] feld, int x, int y) {
+        System.out.println("x: " + x + " y: " + y);
         boolean[][] moves = new boolean[8][8];
-        // go from x and y to the right
-        for (int i = 0; i < 7; i++) {
-            if (feld[i][y] == null) {
-                moves[i][y] = true;
-            } else if (feld[i][y].getFarbe() != farbe) {
-                moves[i][y] = true;
-                break;
-            } else {
-                break;
-            }
+        // right
+        for (int i = 1; i < 8; i++) {
+            int localX = x + i;
+            if(localX > 7 || localX < 0) break;
+            if(feld[y][localX] != null && feld[y][localX].farbe == farbe) break;
+            if(feld[y][localX-1].farbe != farbe) break;
+            moves[localX][y] = true;
         }
-        // go from x and y to the top
-        for (int i = 0; i < 7; i++) {
-            if (feld[x][i] == null) {
-                moves[x][i] = true;
-            } else if (feld[x][i].getFarbe() != farbe) {
-                moves[x][i] = true;
-                break;
-            } else {
-                break;
-            }
+        // left
+        for (int i = 1; i < 8; i++) {
+            int localX = x - i;
+            if(localX > 7 || localX < 0) break;
+            if(feld[y][localX] != null && feld[y][localX].farbe == farbe) break;
+            if(feld[y][localX+1].farbe != farbe) break;
+            moves[localX][y] = true;
+        }
+        // up
+        for (int i = 1; i < 8; i++) {
+            int localY = y - i;
+            if(localY > 7 || localY < 0) break;
+            if(feld[localY][x] != null && feld[localY][x].farbe == farbe) break;
+            if(feld[localY+1][x].farbe != farbe) break;
+            moves[x][localY] = true;
+        }
+        // down
+        for (int i = 1; i < 8; i++) {
+            int localY = y + i;
+            if(localY > 7 || localY < 0) break;
+            if(feld[localY][x] != null && feld[localY][x].farbe == farbe) break;
+            if(feld[localY-1][x].farbe != farbe) break;
+            moves[x][localY] = true;
         }
         return moves;
     }
 
     // if type is dame
     private boolean[][] dame(Figur[][] feld, int x, int y) {
-        if (turm(feld, x, y) != null) {
-            return turm(feld, x, y);
-        } else if (läufer(feld, x, y) != null) {
-            return läufer(feld, x, y);
-        } else {
-            return null;
+        boolean[][] moves = new boolean[8][8];
+
+        boolean[][] läufer = läufer(feld, x, y);
+        boolean[][] turm = turm(feld, x, y);
+
+        for(int i = 0; i < 8; i++) {
+            for(int j = 0; j < 8; j++) {
+                if(läufer[i][j] || turm[i][j]) {
+                    moves[i][j] = true;
+                }
+            }
         }
+
+        return moves;
     }
 
     // if type is könig
     private boolean[][] könig(Figur[][] feld, int x, int y) {
         boolean[][] moves = new boolean[8][8];
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                if (x + i < 8 && x + i > 0 && y + j < 8 && y + j > 0 && feld[x + i][y + j] == null) {
-                    moves[x + i][y + j] = true;
-                    return moves;
-                }
+        for(int i = -1; i <= 1; i++) {
+            for(int j = -1; j <= 1; j++) {
+                int localX = x + i;
+                int localY = y + j;
+                if(localX > 7 || localX < 0 || localY > 7 || localY < 0) break;
+                moves[localX][localY] = true;
             }
         }
         return moves;
@@ -160,6 +216,7 @@ public class Figur {
     //if type is bauer
     private boolean[][] bauer(Figur[][] feld, int x, int y) {
         boolean moves[][] = new boolean[8][8];
+
         if (farbe == FigurFarbe.WEISS) {
             if (feld[x][y+1] == null) {
                 moves[x][y+1] = true;
