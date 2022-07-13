@@ -40,11 +40,47 @@ public class SpielFenster extends Fenster {
             if(x - paddingX > 0 && x < dimension.width - paddingX && y > 0 && y < dimension.height - paddingY) {
                 int xPos = (x - 1) / size - 2;
                 int yPos = (y - 1) / size - 1;
-                if(selectedPosition == null) selectedPosition = new Position(xPos, yPos);
+                 // aktueller Spieler
+                Spieler aktuellerSpieler = schach.aktuellerSpieler();
+
+                if(selectedPosition == null) {
+                    Figur figur = schach.brett.getFeld()[yPos][xPos];
+                    // if no position selected
+                    if(figur == null) return;
+                    // Figur auf der Position
+                    if(figur.farbe != aktuellerSpieler.farbe) return;
+                    selectedPosition = new Position(xPos, yPos);
+                }
                 else if(!selectedPosition.istGleich(new Position(xPos, yPos))) {
+                    // Zielposition
                     Position position = new Position(xPos, yPos);
-                    if(schach.brett.istBesetzt(position.y, position.x)) schach.brett.kick(position.y, position.x);
-                    schach.brett.move(selectedPosition.y, selectedPosition.x, position.y, position.x);
+
+                    // Figur auf der Position
+                    Figur figur = schach.brett.getFeld()[selectedPosition.y][selectedPosition.x];
+                    if(figur == null) return;
+                    if(figur.farbe != aktuellerSpieler.farbe) {
+                        selectedPosition = position;
+                        return;
+                    }
+                    
+                    Figur ziel = schach.brett.getFeld()[position.y][position.x];
+                    if(ziel == null || ziel.farbe != aktuellerSpieler.farbe) {
+                        // if move is possible
+                        boolean[][] moves = figur.getMoves(schach.brett.getFeld(), selectedPosition.x, selectedPosition.y);
+                        for(int i = 0; i<moves.length; i++) {
+                            for(int j = 0; j<moves[i].length; j++) {
+                                if(moves[j][i]) System.out.print("O ");
+                                else System.out.print("- ");
+                            }
+                            System.out.println();
+                        }
+                        System.out.println();
+                        if(!moves[xPos][yPos]) return;
+
+                        if(schach.brett.istBesetzt(position.y, position.x)) schach.brett.kick(position.y, position.x);
+                        schach.brett.move(selectedPosition.y, selectedPosition.x, position.y, position.x);
+                        schach.nächsterSpieler();
+                    }
                     selectedPosition = null;
                 }
             }
@@ -90,7 +126,12 @@ public class SpielFenster extends Fenster {
         // draw player names
         graphics.setFont(graphics.getFont().deriveFont(16f));
         graphics.drawString(spieler1.name, 30, 70);
+        // underline text
+        if(schach.spielerNummer() == 0) graphics.drawLine(30, 80, graphics.getFont().getSize() * spieler1.name.length(), 80);
+
         graphics.drawString(spieler2.name, (int) dimension.getWidth() - 100, 70);
+        // underline text
+        if(schach.spielerNummer() == 1) graphics.drawLine((int) dimension.getWidth() - (int) graphics.getFont().getSize() * spieler2.name.length() , 80, (int) dimension.getWidth() - 30, 80);
 
         // draw board
         for (int i = 0; i < 8; i++) {
