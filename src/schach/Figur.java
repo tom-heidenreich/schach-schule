@@ -1,5 +1,7 @@
 package schach;
 
+import java.io.Console;
+
 public class Figur {
 
     public static enum FigurType {
@@ -84,36 +86,40 @@ public class Figur {
     // if type is läufer
     private boolean[][] läufer(Figur[][] feld, int x, int y) {
         boolean[][] moves = new boolean[8][8];
-        // up, left
-        for(int i = 0; i < 8; i++) {
+        // down, right
+        for(int i = 1; i < 8; i++) {
             int localX = x + i;
             int localY = y + i;
             if(localX < 0 || localX > 7 || localY < 0 || localY > 7) break;
-            if(feld[localY][localX] != null) break;
-            moves[localX][localY] = true;
-        }
-        // up, right
-        for(int i = 0; i < 8; i++) {
-            int localX = x - i;
-            int localY = y + i;
-            if(localX < 0 || localX > 7 || localY < 0 || localY > 7) break;
-            if(feld[localY][localX] != null) break;
+            if(feld[localY][localX] != null && feld[localY][localX].farbe == farbe) break;
+            if(feld[localY-1][localX-1] != null && feld[localY-1][localX-1].farbe != farbe) break;
             moves[localX][localY] = true;
         }
         // down, left
-        for(int i = 0; i < 8; i++) {
+        for(int i = 1; i < 8; i++) {
+            int localX = x - i;
+            int localY = y + i;
+            if(localX < 0 || localX > 7 || localY < 0 || localY > 7) break;
+            if(feld[localY][localX] != null && feld[localY][localX].farbe == farbe) break;
+            if(feld[localY-1][localX+1] != null && feld[localY-1][localX+1].farbe != farbe) break;
+            moves[localX][localY] = true;
+        }
+        // up, right
+        for(int i = 1; i < 8; i++) {
             int localX = x + i;
             int localY = y - i;
             if(localX < 0 || localX > 7 || localY < 0 || localY > 7) break;
-            if(feld[localY][localX] != null) break;
+            if(feld[localY][localX] != null && feld[localY][localX].farbe == farbe) break;
+            if(feld[localY+1][localX-1] != null && feld[localY+1][localX-1].farbe != farbe) break;
             moves[localX][localY] = true;
         }
-        // down, right
-        for(int i = 0; i < 8; i++) {
+        // up, left
+        for(int i = 1; i < 8; i++) {
             int localX = x - i;
             int localY = y - i;
             if(localX < 0 || localX > 7 || localY < 0 || localY > 7) break;
-            if(feld[localY][localX] != null) break;
+            if(feld[localY][localX] != null && feld[localY][localX].farbe == farbe) break;
+            if(feld[localY+1][localX+1] != null && feld[localY+1][localX+1].farbe != farbe) break;
             moves[localX][localY] = true;
         }
         return moves;
@@ -144,7 +150,6 @@ public class Figur {
 
     // if type is turm
     private boolean[][] turm(Figur[][] feld, int x, int y) {
-        System.out.println("x: " + x + " y: " + y);
         boolean[][] moves = new boolean[8][8];
         // right
         for (int i = 1; i < 8; i++) {
