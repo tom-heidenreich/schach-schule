@@ -19,10 +19,10 @@ public class Brett {
         // feld[3][4] = new Figur(4, 3, type, FigurFarbe.WEISS);
 
         for (int k = 0; k < 8; k++) {
-            feld[7][k] = new Figur(k, 7, aufstellung[k], FigurFarbe.SCHWARZ);
-            feld[0][k] = new Figur(k, 0, aufstellung[k], FigurFarbe.WEISS);
-            feld[1][k] = new Figur(k, 1, FigurType.BAUER, FigurFarbe.WEISS);
-            feld[6][k] = new Figur(k, 6, FigurType.BAUER, FigurFarbe.SCHWARZ);
+            feld[7][k] = new Figur(k, 7, aufstellung[k], FigurFarbe.SCHWARZ, this);
+            feld[0][k] = new Figur(k, 0, aufstellung[k], FigurFarbe.WEISS, this);
+            feld[1][k] = new Figur(k, 1, FigurType.BAUER, FigurFarbe.WEISS, this);
+            feld[6][k] = new Figur(k, 6, FigurType.BAUER, FigurFarbe.SCHWARZ, this);
 
         }
     }
