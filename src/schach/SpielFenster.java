@@ -19,6 +19,7 @@ import schach.Figur.FigurType;
 public class SpielFenster extends Fenster {
     
     private final Schach schach;
+    private final EndFenster endfenster;
 
     protected static final Dimension dimension = new Dimension(1200, 1000);
 
@@ -82,6 +83,12 @@ public class SpielFenster extends Fenster {
                         if(schach.brett.istBesetzt(position.y, position.x)) schach.brett.kick(position.y, position.x);
                         schach.brett.move(selectedPosition.y, selectedPosition.x, position.y, position.x);
                         schach.nächsterSpieler();
+
+                        // check if game is over
+                        if(schach.brett.istSpielZuEnde()) {
+                            schach.setzeFenster(endfenster);
+                            return;
+                        }
                     }
                     selectedPosition = null;
                     highlightedPositions = new boolean[8][8];
@@ -91,11 +98,16 @@ public class SpielFenster extends Fenster {
     };
 
     public SpielFenster(Schach schach, Main main) {
+
         // click listener
-        super(144);
+        super(10);
+
         this.schach = schach;
+        endfenster = new EndFenster(schach, main);
+
         this.setSize(dimension);
         this.setAdapter(adapter);
+
         
         FigurType[] types = Figur.FigurType.values();
         this.images = new HashMap<String, BufferedImage>();
