@@ -266,7 +266,7 @@ public class Figur {
             if (x + 1 < 8 && feld[y + 1][x + 1] != null && feld[y + 1][x + 1].farbe != farbe)
                 moves[x + 1][y + 1] = true;
             if (x - 1 > -1 && feld[y + 1][x - 1] != null && feld[y + 1][x - 1].farbe != farbe)
-                moves[x + 1][y - 1] = true;
+                moves[x - 1][y + 1] = true;
         } else {
             if (y - 1 < 0)
                 return moves;
