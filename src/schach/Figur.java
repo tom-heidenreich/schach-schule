@@ -240,13 +240,17 @@ public class Figur {
     // if type is könig
     private boolean[][] könig(int x, int y) {
         boolean[][] moves = new boolean[8][8];
+        FigurFarbe farb;
+        if(farbe == FigurFarbe.SCHWARZ)
+            farb = FigurFarbe.WEISS;
+        else
+            farb = FigurFarbe.SCHWARZ;
+        boolean[][] ziele = zielscan(farb);
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 int localX = x + i;
                 int localY = y + j;
-                if (localX > 7 || localX < 0 || localY > 7 || localY < 0)
-                    break;
-                moves[localX][localY] = true;
+                if (localX < 8 && localX >= 0 && localY < 8 && localY >= 0 && ziele[localX][localY] == false) moves[localX][localY] = true;
             }
         }
         return moves;
