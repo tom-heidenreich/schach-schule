@@ -10,6 +10,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 
@@ -194,6 +195,23 @@ public class SpielFenster extends Fenster {
                     }
                     if(figurImage != null) graphics.drawImage(figurImage, x, y, size, size, null);
                 }
+
+                // geschlagene Figuren
+                LinkedList<Figur> geschlageneFiguren = schach.brett.geschlageneFiguren;
+                int geschlageneFigurenSchwarz = 0;
+                int geschlageneFigurenWeiss = 0;
+                schach.brett.setzeProtectList(true);
+                for(Figur geschlageneFigur : geschlageneFiguren) {
+                    BufferedImage figurImage;
+                    if(geschlageneFigur.farbe == FigurFarbe.WEISS) {
+                        figurImage = this.images.get(geschlageneFigur.type.name() + 'w');
+                        graphics.drawImage(figurImage, (int) dimension.getWidth() - 140, 80 + size * geschlageneFigurenWeiss++, size, size, null);
+                    } else {
+                        figurImage = this.images.get(geschlageneFigur.type.name() + 'b');
+                        graphics.drawImage(figurImage, 40, 80 + size * geschlageneFigurenSchwarz++, size, size, null);
+                    }
+                }
+                schach.brett.setzeProtectList(false);
             }
         }
 

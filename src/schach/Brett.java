@@ -1,5 +1,7 @@
 package schach;
 
+import java.util.LinkedList;
+
 import schach.Figur.FigurFarbe;
 import schach.Figur.FigurType;
 
@@ -7,6 +9,9 @@ public class Brett {
     private final Figur[][] feld;
     FigurType[] aufstellung = { FigurType.TURM, FigurType.SPRINGER, FigurType.LÄUFER, FigurType.DAME, FigurType.KÖNIG,
             FigurType.LÄUFER, FigurType.SPRINGER, FigurType.TURM };
+
+    public final LinkedList<Figur> geschlageneFiguren = new LinkedList<Figur>();
+    private boolean protectList = false;
 
     public Brett() {
         feld = new Figur[8][8];
@@ -50,10 +55,22 @@ public class Brett {
     }
 
     public void kick(int x, int y) {
+        if(feld[x][y] != null) {
+            Figur figur = feld[x][y];
+            new Thread(() -> {
+                // warte bis wieder sicher
+                while(protectList);
+                if(figur.type != FigurType.KÖNIG) geschlageneFiguren.add(figur);
+            }).start();
+        }
         feld[x][y] = null;
     }
 
     public boolean istSpielZuEnde() {
         return false;
+    }
+
+    public void setzeProtectList(boolean protectList) {
+        this.protectList = protectList;
     }
 }
