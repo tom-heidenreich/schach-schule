@@ -29,7 +29,7 @@ public class Brett {
 
     public void move(int x1, int y1, int x2, int y2) {
         if (feld[x1][y1] != null && feld[x1][y1].type == FigurType.BAUER) {
-            if (y2 == 7 || y2 == 0) {
+            if (x2 == 7 || x2 == 0) {
                 feld[x1][y1].type = FigurType.DAME;
             }
         }
