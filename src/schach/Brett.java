@@ -52,4 +52,8 @@ public class Brett {
     public void kick(int x, int y) {
         feld[x][y] = null;
     }
+
+    public boolean istSpielZuEnde() {
+        return false;
+    }
 }
