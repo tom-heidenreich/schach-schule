@@ -14,7 +14,7 @@ public class Brett {
     }
 
     private void feldFuellen() {
-        FigurType type = FigurType.DAME;
+        // FigurType type = FigurType.DAME;
         // feld[4][3] = new Figur(4, 3, type, FigurFarbe.SCHWARZ);
         // feld[3][4] = new Figur(4, 3, type, FigurFarbe.WEISS);
 

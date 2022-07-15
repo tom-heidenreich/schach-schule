@@ -24,24 +24,27 @@ public abstract class Fenster {
 
         frame.setVisible(false);
 
-        int frameDelay = 1000 / frames;
-        
-        worker = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while(true) {
-                    long start = System.currentTimeMillis();
-                    zeichne(bufferStrategy);
-                    try {
-                        long delay = frameDelay- System.currentTimeMillis() - start;
-                        if(delay < 0) delay = 0;
-                        Thread.sleep(delay);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+        if(frames > 0) {
+            int frameDelay = 1000 / frames;
+            
+            worker = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while(true) {
+                        long start = System.currentTimeMillis();
+                        zeichne(bufferStrategy);
+                        try {
+                            long delay = frameDelay- System.currentTimeMillis() - start;
+                            if(delay < 0) delay = 0;
+                            Thread.sleep(delay);
+                        } catch (InterruptedException e) {
+                            // kann man ignorieren
+                            // e.printStackTrace();
+                        }
                     }
                 }
-            }
-        });
+            });
+        }else worker = null;
     }
 
     protected JFrame getFrame() {
@@ -60,11 +63,11 @@ public abstract class Fenster {
 
     public void start() {
         this.frame.setVisible(true);
-        worker.start();
+        if(worker != null) worker.start();
     }
 
     public void stop() {
         this.frame.setVisible(false);
-        worker.interrupt();
+        if(worker != null) worker.interrupt();
     }
 }
