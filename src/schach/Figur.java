@@ -317,4 +317,24 @@ public class Figur {
         // }
         return moves;
     }
+
+    private boolean[][] zielscan(FigurFarbe farb){
+        Figur[][] feld = brett.getFeld();
+        boolean[][] moves = new boolean[8][8];
+        for (int i = 0; i < 8; i++){
+            for (int j = 0; j < 8; j++){
+                if (feld[i][j] != null && feld[i][j].farbe == farb){
+                    boolean[][] input = feld[i][j].getMoves(i, j);
+                    for (int a = 0; a < 8; a++){
+                        for (int b = 0; b < 8; b++){
+                            if (input[a][b] == true){
+                                moves[a][b] = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return moves;
+    }
 }
