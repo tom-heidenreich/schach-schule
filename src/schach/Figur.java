@@ -68,7 +68,6 @@ public class Figur {
 
     // give all possible moves in a two dimensional array
     public boolean[][] getMoves(int x, int y) {
-        Figur[][] feld = brett.getFeld();
         // if type is Läufer
         if (type == FigurType.LÄUFER)
             return läufer(x, y);
@@ -148,7 +147,6 @@ public class Figur {
 
     // if type is Springer
     private boolean[][] springer(int x, int y) {
-        Figur[][] feld = brett.getFeld();
         boolean[][] moves = new boolean[8][8];
         for (int i = -2; i < 3; i++) {
             for (int j = -2; j < 3; j++) {
@@ -223,7 +221,6 @@ public class Figur {
 
     // if type is dame
     private boolean[][] dame(int x, int y) {
-        Figur[][] feld = brett.getFeld();
         boolean[][] moves = new boolean[8][8];
 
         boolean[][] läufer = läufer( x, y);
@@ -242,7 +239,6 @@ public class Figur {
 
     // if type is könig
     private boolean[][] könig(int x, int y) {
-        Figur[][] feld = brett.getFeld();
         boolean[][] moves = new boolean[8][8];
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
