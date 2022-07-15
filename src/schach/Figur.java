@@ -1,7 +1,5 @@
 package schach;
 
-import java.io.Console;
-
 public class Figur {
 
     public static enum FigurType {
@@ -37,13 +35,15 @@ public class Figur {
     protected FigurType type;
     protected FigurFarbe farbe;
 
+    private final Brett brett;
+
     // create constructor
-    public Figur(int x, int y, FigurType type, FigurFarbe farbe) {
+    public Figur(int x, int y, FigurType type, FigurFarbe farbe, Brett brett) {
         this.xalt = x;
         this.yalt = y;
         this.type = type;
         this.farbe = farbe;
-
+        this.brett = brett;
     }
 
     // give x position
@@ -67,31 +67,33 @@ public class Figur {
     }
 
     // give all possible moves in a two dimensional array
-    public boolean[][] getMoves(Figur[][] feld, int x, int y) {
+    public boolean[][] getMoves(int x, int y) {
+        Figur[][] feld = brett.getFeld();
         // if type is Läufer
         if (type == FigurType.LÄUFER)
-            return läufer(feld, x, y);
+            return läufer(x, y);
         // if type is Springer
         else if (type == FigurType.SPRINGER)
-            return springer(feld, x, y);
+            return springer(x, y);
         // if type is Turm
         else if (type == FigurType.TURM)
-            return turm(feld, x, y);
+            return turm(x, y);
         // if type is Dame
         else if (type == FigurType.DAME)
-            return dame(feld, x, y);
+            return dame(x, y);
         // if type is König
         else if (type == FigurType.KÖNIG)
-            return könig(feld, x, y);
+            return könig(x, y);
         // if type is Bauer
         else if (type == FigurType.BAUER)
-            return bauer(feld, x, y);
+            return bauer(x, y);
         else
             return null;
     }
 
     // if type is läufer
-    private boolean[][] läufer(Figur[][] feld, int x, int y) {
+    private boolean[][] läufer(int x, int y) {
+        Figur[][] feld = brett.getFeld();
         boolean[][] moves = new boolean[8][8];
         // down, right
         for (int i = 1; i < 8; i++) {
@@ -145,7 +147,8 @@ public class Figur {
     }
 
     // if type is Springer
-    private boolean[][] springer(Figur[][] feld, int x, int y) {
+    private boolean[][] springer(int x, int y) {
+        Figur[][] feld = brett.getFeld();
         boolean[][] moves = new boolean[8][8];
         for (int i = -2; i < 3; i++) {
             for (int j = -2; j < 3; j++) {
@@ -168,7 +171,8 @@ public class Figur {
     }
 
     // if type is turm
-    private boolean[][] turm(Figur[][] feld, int x, int y) {
+    private boolean[][] turm(int x, int y) {
+        Figur[][] feld = brett.getFeld();
         boolean[][] moves = new boolean[8][8];
         // right
         for (int i = 1; i < 8; i++) {
@@ -218,11 +222,12 @@ public class Figur {
     }
 
     // if type is dame
-    private boolean[][] dame(Figur[][] feld, int x, int y) {
+    private boolean[][] dame(int x, int y) {
+        Figur[][] feld = brett.getFeld();
         boolean[][] moves = new boolean[8][8];
 
-        boolean[][] läufer = läufer(feld, x, y);
-        boolean[][] turm = turm(feld, x, y);
+        boolean[][] läufer = läufer( x, y);
+        boolean[][] turm = turm(x, y);
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -236,7 +241,8 @@ public class Figur {
     }
 
     // if type is könig
-    private boolean[][] könig(Figur[][] feld, int x, int y) {
+    private boolean[][] könig(int x, int y) {
+        Figur[][] feld = brett.getFeld();
         boolean[][] moves = new boolean[8][8];
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
@@ -251,7 +257,8 @@ public class Figur {
     }
 
     // if type is bauer
-    private boolean[][] bauer(Figur[][] feld, int x, int y) {
+    private boolean[][] bauer(int x, int y) {
+        Figur[][] feld = brett.getFeld();
         boolean moves[][] = new boolean[8][8];
 
         if (farbe == FigurFarbe.WEISS) {
