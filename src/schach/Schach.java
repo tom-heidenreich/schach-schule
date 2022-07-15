@@ -21,7 +21,7 @@ public class Schach {
     public void setzeFenster(Fenster fenster) {
         if(this.fenster != null) this.fenster.stop();
         this.fenster = fenster;
-        this.fenster.start();
+        if(fenster != null) this.fenster.start();
     }
 
     public Spieler aktuellerSpieler() {
